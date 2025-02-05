@@ -28,12 +28,52 @@ async function run() {
 
         const db=client.db("WhereIsIt");
         const itemsCollection = db.collection("Items");
+        const RecoveryItemsCollection=db.collection("RecoveryItems");
         //post a items
-        app.post("/items", async (req,res)=>{
+        app.post("/Additems", async (req,res)=>{
             const newitem = req.body;
             const result= await itemsCollection.insertOne(newitem);
             res.send(result);
         })
+
+        //getting item
+        app.get("/getAllitems", async (req,res)=>{
+            const result = await itemsCollection.find().toArray();
+            res.send(result);
+        })
+       
+        // getting item by id
+        app.get("/getAllitems/:id",async(req,res)=>{
+            const id=req.params.id;
+            const query={_id: new ObjectId(id) };
+            const result=await itemsCollection.findOne(query);
+            res.send(result);
+        })
+      
+        //delete item
+        app.delete("/deleteitem/:id", async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: new ObjectId(id) };
+            const result = await itemsCollection.deleteOne(query);
+            res.send(result);
+        })
+
+
+        //recovey items collection
+        app.post("/Recoveryitems",async(req,res)=>{
+            const newitem = req.body;
+            const result=await RecoveryItemsCollection.insertOne(newitem);
+            res.send(result);
+        })
+        app.get("/AllRecoveryItems",async(req,res)=>{
+            const result = await RecoveryItemsCollection.find().toArray();
+            res.send(result);
+        })
+
+
+
+
+        
 
 
         // Connect the client to the server
