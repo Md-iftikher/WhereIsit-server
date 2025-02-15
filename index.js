@@ -9,8 +9,8 @@ const port = process.env.PORT || 5000;
 const app = express();
 
 const corsOptions = {
-  origin: ["http://localhost:5173"],
-  credentials: true,
+  origin: ["https://whereisit-852ae.web.app","http://localhost:5173"],
+  credentials: true, 
   optionalSuccessStatus: 200,
 };
 
@@ -28,7 +28,7 @@ const client = new MongoClient(uri, {
   },
 });
 
-// Verify Token Middleware
+// Verify Token
 const verifyToken = (req, res, next) => {
   const token = req.cookies?.token;
   if (!token) return res.status(401).send({ message: "Unauthorized access" });
