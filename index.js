@@ -93,7 +93,7 @@ async function run() {
       res.send(result);
     });
 
-    // Get item by ID
+    // Get item by id 
     app.get("/getAllitems/:id", async (req, res) => {
       const id = req.params.id;
       const query = { _id: new ObjectId(id) };
@@ -124,7 +124,7 @@ async function run() {
       res.send(result);
     });
 
-    // Update item
+    // Update items data 
     app.patch("/updateitem/:id", async (req, res) => {
       const itemId = req.params.id;
       const updateData = req.body;
@@ -142,6 +142,8 @@ async function run() {
 
       res.status(200).json({ message: "Item updated successfully", result });
     });
+
+    // update item
     app.put("/replaceitem/:id", async (req, res) => {
       const itemId = req.params.id;
       let updatedItem = req.body;
